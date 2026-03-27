@@ -1,0 +1,189 @@
+==================================================
+  AEGIS.AI — CONNECTION GUIDE
+  Log of every port, endpoint, and data connection
+==================================================
+Last Updated: 2025-03-27
+Version: 1.0
+
+--------------------------------------------------
+SECTION 1: PORTS
+--------------------------------------------------
+
+SERVICE                        PORT / ADDRESS
+-------------------------------|-----------------
+React Frontend (Vite dev)      | http://localhost:5173
+FastAPI Backend (Uvicorn)      | http://localhost:8000
+SQLite DB (local file)         | ./backend/aegis.db
+PostgreSQL (production only)   | Port 5432 (Railway internal)
+
+--------------------------------------------------
+SECTION 2: API ENDPOINTS
+--------------------------------------------------
+
+Base URL (local dev) : http://localhost:8000
+Base URL (production): https://aegis-api.railway.app  ← TBD after deploy
+
+--- CLASSIFICATION ---
+
+POST  /classify
+  Purpose  : Classify a prompt as SAFE or MALICIOUS
+  Headers  : Content-Type: application/json
+  Body     : { "prompt": "string" }
+  Response : {
+               "id": int,
+               "label": "SAFE" | "MALICIOUS",
+               "confidence": float (0.0 – 1.0),
+               "timestamp": "ISO 8601 datetime string"
+             }
+  Errors   : 422 Unprocessable Entity — missing/invalid prompt
+             500 Internal Server Error — model not loaded
+
+--- HISTORY ---
+
+GET   /history
+  Purpose  : Retrieve past classification records
+  Query Params:
+    limit  = int (default: 20, max: 100)
+    offset = int (default: 0)
+  Response : [
+               {
+                 "id": int,
+                 "prompt": "string",
+                 "label": "SAFE" | "MALICIOUS",
+                 "confidence": float,
+                 "timestamp": "ISO 8601 string"
+               },
+               ...
+             ]
+
+--- STATISTICS ---
+
+GET   /stats
+  Purpose  : Get aggregate classification metrics
+  Response : {
+               "total": int,
+               "safe": int,
+               "malicious": int,
+               "block_rate": float (0.0 – 1.0),
+               "avg_confidence": float
+             }
+
+--- HEALTH CHECK ---
+
+GET   /health
+  Purpose  : Confirm API is alive and model is loaded
+  Response : {
+               "status": "ok",
+               "model_loaded": bool,
+               "vectorizer_loaded": bool,
+               "db_connected": bool
+             }
+
+--------------------------------------------------
+SECTION 3: DATABASE SCHEMA
+--------------------------------------------------
+
+DATABASE : aegis.db (SQLite) / aegis (PostgreSQL)
+ORM      : SQLAlchemy
+
+TABLE: classifications
++-------------+-----------+-------------------------------+
+| Column      | Type      | Notes                         |
++-------------+-----------+-------------------------------+
+| id          | INTEGER   | Primary Key, Auto-increment   |
+| prompt      | TEXT      | Raw input text (NOT NULL)     |
+| label       | VARCHAR   | "SAFE" or "MALICIOUS"         |
+| confidence  | REAL      | Model confidence 0.0 – 1.0   |
+| timestamp   | DATETIME  | Default: CURRENT_TIMESTAMP    |
++-------------+-----------+-------------------------------+
+
+--------------------------------------------------
+SECTION 4: MODEL FILES
+--------------------------------------------------
+
+FILE                              PURPOSE
+----------------------------------|--------------------------------
+./backend/model/model.pkl         | Trained LinearSVC classifier
+./backend/model/vectorizer.pkl    | Fitted TF-IDF vectorizer (5000 features)
+
+How they are loaded (backend/classifier.py):
+  - Loaded once at FastAPI app startup into memory
+  - Reused for every /classify request (no reload per request)
+
+--------------------------------------------------
+SECTION 5: FRONTEND → BACKEND CONNECTION
+--------------------------------------------------
+
+File : frontend/src/api/client.js
+Tool : Axios
+      import axios from 'axios';
+      const API = axios.create({ baseURL: import.meta.env.VITE_API_URL });
+
+Calls made by the frontend:
+  - POST /classify     → on form submit (PromptInput.jsx)
+  - GET  /history      → on page load + after each classify (HistoryLog.jsx)
+  - GET  /stats        → on page load + after each classify (StatsBar.jsx)
+  - GET  /health       → on page load only (App.jsx)
+
+CORS Configuration (backend/main.py):
+  Allowed Origins (local) : http://localhost:5173
+  Allowed Origins (prod)  : https://aegis-ai.vercel.app  ← TBD after deploy
+  Allowed Methods         : GET, POST
+  Allowed Headers         : Content-Type
+
+--------------------------------------------------
+SECTION 6: ENVIRONMENT VARIABLES
+--------------------------------------------------
+
+BACKEND (.env in /backend/)
+  DATABASE_URL      = sqlite:///./aegis.db
+  MODEL_PATH        = ./model/model.pkl
+  VECTORIZER_PATH   = ./model/vectorizer.pkl
+  ALLOWED_ORIGINS   = http://localhost:5173
+  PORT              = 8000
+
+  (Production overrides on Railway:)
+  DATABASE_URL      = postgresql://user:pass@host:5432/aegis
+  ALLOWED_ORIGINS   = https://aegis-ai.vercel.app
+
+FRONTEND (.env in /frontend/)
+  VITE_API_URL      = http://localhost:8000
+
+  (Production overrides on Vercel:)
+  VITE_API_URL      = https://aegis-api.railway.app
+
+--------------------------------------------------
+SECTION 7: DEPLOYMENT TARGETS
+--------------------------------------------------
+
+SERVICE     PLATFORM        NOTES
+------------|----------------|--------------------------------
+Backend API | Railway.app    | Python Dockerfile or buildpack
+Database    | Railway PostgreSQL | Linked to backend service
+Frontend    | Vercel         | Static React/Vite build
+            |                | VITE_API_URL env var required
+
+--------------------------------------------------
+SECTION 8: COMMON DEBUGGING CHECKLIST
+--------------------------------------------------
+
+Problem: Frontend shows network error
+  → Check backend is running: http://localhost:8000/health
+  → Check VITE_API_URL in frontend/.env
+  → Check CORS ALLOWED_ORIGINS in backend .env
+
+Problem: Model not loaded error (500 on /classify)
+  → Confirm model.pkl and vectorizer.pkl exist in backend/model/
+  → Re-run notebook to regenerate .pkl files
+
+Problem: Database connection error
+  → Delete aegis.db and restart backend (SQLite auto-recreates)
+  → For PostgreSQL: verify DATABASE_URL connection string
+
+Problem: CORS error in browser console
+  → Add the exact frontend URL to ALLOWED_ORIGINS in backend .env
+  → Restart the FastAPI server after .env change
+
+==================================================
+END OF CONNECTION GUIDE
+==================================================
