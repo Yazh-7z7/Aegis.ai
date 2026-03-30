@@ -78,7 +78,7 @@ export default function App() {
                 className="w-1.5 h-1.5 rounded-full"
                 style={{ background: apiStatus === 'ok' ? '#22C55E' : apiStatus === 'degraded' ? '#EF4444' : '#B19EEF' }}
               />
-              {apiStatus === 'ok' ? 'API Online' : apiStatus === 'degraded' ? 'API Degraded' : 'Connecting…'}
+              {apiStatus === 'ok' ? 'Online' : apiStatus === 'degraded' ? 'Offline' : 'Connecting…'}
             </div>
           </div>
 
@@ -104,9 +104,7 @@ export default function App() {
               <span className="gradient-text">In Real Time.</span>
             </h1>
             <p className="text-white/45 text-sm leading-relaxed max-w-sm mx-auto">
-              AI-powered prompt injection firewall — classifies every prompt as{' '}
-              <span className="text-safe font-semibold">SAFE</span> or{' '}
-              <span className="text-danger font-semibold">MALICIOUS</span> in under 200ms.
+                    AI-powered prompt injection firewall
             </p>
           </div>
 
@@ -124,7 +122,7 @@ export default function App() {
 
           {/* Footer */}
           <p className="text-white/15 text-xs font-mono mt-auto pt-4">
-            Aegis.ai v1.0 · LinearSVC + TF-IDF · 91.7% malicious recall
+            Aegis.ai v1.0 made by yazh_7z7
           </p>
         </div>
       </div>
