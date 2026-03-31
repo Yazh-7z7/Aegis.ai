@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import PixelSnow from './Pixelsnow';
+import PixelSnow from './PixelSnow';
 import SplitText from './SplitText';
 
 export default function HomePage({ onEnter }) {
@@ -12,7 +12,7 @@ export default function HomePage({ onEnter }) {
         width: '100vw',
         height: '100vh',
         overflow: 'hidden',
-        background: '#0A0A0F',
+        background: '#171615',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -23,11 +23,11 @@ export default function HomePage({ onEnter }) {
       {/* PixelSnow background */}
       <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
         <PixelSnow
-          color="#7B5EFF"
+          color="#f7f7f7ff"
           flakeSize={0.008}
           minFlakeSize={1.1}
-          pixelResolution={180}
-          speed={0.9}
+          pixelResolution={150}
+          speed={0.7}
           depthFade={10}
           farPlane={22}
           brightness={1.2}
@@ -74,8 +74,8 @@ export default function HomePage({ onEnter }) {
             <path d="M14 8l-5 2.8v5.4l5 2.8 5-2.8v-5.4L14 8z" fill="rgba(255,255,255,0.18)" />
             <defs>
               <linearGradient id="hp-shield-grad" x1="3" y1="2" x2="25" y2="26" gradientUnits="userSpaceOnUse">
-                <stop stopColor="#5227FF" />
-                <stop offset="1" stopColor="#FF9FFC" />
+                <stop stopColor="#f4f3f7ff" />
+                <stop offset="1" stopColor="#212021ff" />
               </linearGradient>
             </defs>
           </svg>
@@ -94,10 +94,16 @@ export default function HomePage({ onEnter }) {
               fontWeight: 800,
               letterSpacing: '-0.04em',
               lineHeight: 1,
-              background: 'linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.75) 100%)',
+            }}
+            charStyle={{
+              background: 'linear-gradient(135deg, #e9e4e4ff 0%, rgba(121, 121, 126, 0.9) 50%, #696669ff 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
+              fontSize: 'clamp(64px, 12vw, 112px)',
+              fontWeight: 800,
+              letterSpacing: '-0.04em',
+              lineHeight: 1,
             }}
           />
         </div>
@@ -129,7 +135,7 @@ export default function HomePage({ onEnter }) {
             borderRadius: '100px',
             border: '1px solid rgba(255,255,255,0.12)',
             background: hovered
-              ? 'rgba(82,39,255,0.25)'
+              ? 'rgba(91, 89, 102, 0.25)'
               : 'rgba(255,255,255,0.06)',
             color: hovered ? '#fff' : 'rgba(255,255,255,0.7)',
             fontSize: '15px',
@@ -139,7 +145,7 @@ export default function HomePage({ onEnter }) {
             backdropFilter: 'blur(12px)',
             WebkitBackdropFilter: 'blur(12px)',
             transition: 'all 0.25s ease',
-            boxShadow: hovered ? '0 0 40px rgba(82,39,255,0.35), 0 0 0 1px rgba(82,39,255,0.5)' : 'none',
+            boxShadow: hovered ? '0 0 40px rgba(255, 39, 39, 0.35), 0 0 0 1px rgba(80, 74, 74, 0.5)' : 'none',
             opacity: 0,
             animation: 'fadeSlideUp 0.9s cubic-bezier(0.16,1,0.3,1) 1.4s forwards',
           }}
