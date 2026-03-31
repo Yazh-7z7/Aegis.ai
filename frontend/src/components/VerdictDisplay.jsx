@@ -84,8 +84,8 @@ export default function VerdictDisplay({ result }) {
         {/* Message */}
         <p className="text-white/80 text-sm mb-4 leading-relaxed">
           {isMalicious
-            ? 'Prompt Injection Detected — this prompt attempts to override system instructions or manipulate LLM behavior.'
-            : 'Safe Prompt — no injection patterns detected. This prompt can be forwarded to the LLM.'}
+            ? 'Prompt Injection Detected, this prompt attempts to override system instructions or manipulate LLM behavior.'
+            : 'Safe Prompt, no injection patterns detected. This prompt can be forwarded to the LLM.'}
         </p>
 
         {/* Confidence bar */}
