@@ -46,10 +46,10 @@ export default function StatsBar({ stats }) {
 
   return (
     <div className="w-full max-w-2xl mx-auto grid grid-cols-4 gap-3">
-      <StatCard label="Total"     value={stats.total}    color="#B19EEF"/>
+      <StatCard label="Total"     value={stats.total}    color="#f8f3f8fff"/>
       <StatCard label="Blocked"   value={stats.malicious} color="#EF4444"/>
       <StatCard label="Passed"    value={stats.safe}      color="#22C55E"/>
-      <StatCard label="Block Rate" value={`${blockRate}%`} color="#FF9FFC"/>
+      <StatCard label="Block Rate" value={`${blockRate}%`} color="#f8f3f8ff"/>
     </div>
   );
 }

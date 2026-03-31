@@ -22,11 +22,11 @@ function NavItem({ icon, label, active, onClick }) {
         borderRadius: '10px',
         border: 'none',
         background: active
-          ? 'rgba(82,39,255,0.18)'
+          ? 'rgba(111, 111, 113, 0.18)'
           : hovered
           ? 'rgba(255,255,255,0.05)'
           : 'transparent',
-        color: active ? '#A78BFA' : hovered ? 'rgba(255,255,255,0.75)' : 'rgba(255,255,255,0.45)',
+        color: active ? 'rgba(111, 111, 113, 0.18)' : hovered ? 'rgba(255,255,255,0.75)' : 'rgba(255,255,255,0.45)',
         cursor: 'pointer',
         fontSize: '14px',
         fontWeight: 500,
@@ -129,8 +129,8 @@ export default function App() {
             <path d="M14 8l-5 2.8v5.4l5 2.8 5-2.8v-5.4L14 8z" fill="rgba(255,255,255,0.15)" />
             <defs>
               <linearGradient id="app-shield" x1="3" y1="2" x2="25" y2="26" gradientUnits="userSpaceOnUse">
-                <stop stopColor="#5227FF" />
-                <stop offset="1" stopColor="#FF9FFC" />
+                <stop stopColor="#f4f3f7ff" />
+                <stop offset="1" stopColor="#212021ff" />
               </linearGradient>
             </defs>
           </svg>
@@ -138,7 +138,7 @@ export default function App() {
             style={{
               fontSize: '16px',
               fontWeight: 700,
-              background: 'linear-gradient(135deg, #5227FF 0%, #FF9FFC 60%, #B19EEF 100%)',
+              background: 'linear-gradient(135deg, #e9e4e4ff 0%, rgba(121, 121, 126, 0.9) 60%, #696669ff 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
@@ -343,11 +343,11 @@ export default function App() {
                 >
                   <div>
                     <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.35)', fontFamily: "'JetBrains Mono', monospace", marginBottom: '4px' }}>AVG CONFIDENCE</p>
-                    <p style={{ fontSize: '26px', fontWeight: 700, color: '#B19EEF' }}>{Math.round(stats.avg_confidence * 100)}%</p>
+                    <p style={{ fontSize: '26px', fontWeight: 700, color: '#eceaf1ff' }}>{Math.round(stats.avg_confidence * 100)}%</p>
                   </div>
                   <div>
                     <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.35)', fontFamily: "'JetBrains Mono', monospace", marginBottom: '4px' }}>BLOCK RATE</p>
-                    <p style={{ fontSize: '26px', fontWeight: 700, color: '#FF9FFC' }}>{Math.round(stats.block_rate * 100)}%</p>
+                    <p style={{ fontSize: '26px', fontWeight: 700, color: '#f4f0f4ff' }}>{Math.round(stats.block_rate * 100)}%</p>
                   </div>
                 </div>
               )}
