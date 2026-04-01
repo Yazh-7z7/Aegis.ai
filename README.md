@@ -35,7 +35,7 @@ User Prompt ──▶ Aegis.ai Firewall ──▶ SAFE ──▶ Your LLM
 
 | Safe Prompt | Blocked Prompt |
 |---|---|
-| 🟢 Green flash — "PASSED" | 🔴 Red flash — "BLOCKED" |
+| 🟢 Green flash -> "PASSED" | 🔴 Red flash -> "BLOCKED" |
 
 ---
 
