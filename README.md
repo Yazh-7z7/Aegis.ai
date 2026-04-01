@@ -1,4 +1,3 @@
-# Aegis.ai
 # Aegis.ai - AI Prompt Firewall
 
 <div align="center">
@@ -31,22 +30,17 @@ User Prompt ──▶ Aegis.ai Firewall ──▶ SAFE ──▶ Your LLM
 
 ## Screenshots
 
-> *Full-screen Liquid Ether background · Real-time verdict flashes · Live stats*
 
-| Safe Prompt | Blocked Prompt |
-|---|---|
-| 🟢 Green flash -> "PASSED" | 🔴 Red flash -> "BLOCKED" |
 
----
+
 
 ## Features
 
-- **Real-Time Classification** — Sub-200ms verdict with confidence score on every submission
-- **ML Detection Engine** — LinearSVC + TF-IDF with calibrated probability output and threshold tuning; targets ≥ 90% recall on the malicious class
-- **Immersive Dark UI** — Full-screen Liquid Ether WebGL background, animated verdict flashes, live stats bar, and scrollable history log
-- **Persistent Logging** — Every classification event stored in SQLite (dev) or PostgreSQL (prod) via SQLAlchemy
-- **REST API** — Clean FastAPI backend with `/classify`, `/history`, `/stats`, and `/health` endpoints
-- **Deploy-Ready** — Frontend on Vercel, backend + database on Railway
+- **Real-Time Classification** Sub-200ms verdict with confidence score on every submission
+- **ML Detection Engine** LinearSVC + TF-IDF with calibrated probability output and threshold tuning; targets ≥ 90% recall on the malicious class
+- **Persistent Logging** Every classification event stored in SQLite (dev) or PostgreSQL (prod) via SQLAlchemy
+- **REST API** Clean FastAPI backend with `/classify`, `/history`, `/stats`, and `/health` endpoints
+- **Deploy-Ready** Frontend on Vercel, backend + database on Railway
 
 ---
 
@@ -58,7 +52,7 @@ User Prompt ──▶ Aegis.ai Firewall ──▶ SAFE ──▶ Your LLM
 | Backend API | FastAPI + Uvicorn |
 | Database | SQLAlchemy + SQLite / PostgreSQL |
 | Frontend | React 19 (Vite) + Tailwind CSS v3 |
-| Background | Three.js (WebGL fluid simulation) |
+| Background | Three.js |
 | HTTP Client | Axios |
 | Deployment | Vercel (frontend) + Railway (backend + DB) |
 
@@ -82,12 +76,14 @@ aegis-ai/
 ├── frontend/
 │   └── src/
 │       ├── App.jsx
-│       ├── LiquidEther.jsx    # WebGL fluid background (Three.js)
+│       ├── Homepage.jsx
+│       ├── PixelSnow.jsx    
 │       ├── PromptInput.jsx
 │       ├── VerdictDisplay.jsx
 │       ├── StatsBar.jsx
+        ├── SplitText.jsx
 │       ├── HistoryLog.jsx
-│       └── api/client.js      # Axios API calls
+│       └── api/client.js      
 │
 ├── notebooks/
 │   └── pipeline.ipynb         # Training, evaluation & threshold tuning
