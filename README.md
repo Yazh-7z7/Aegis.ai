@@ -1,5 +1,5 @@
 # Aegis.ai
-# Aegis.ai — AI Prompt Firewall
+# Aegis.ai - AI Prompt Firewall
 
 <div align="center">
 
