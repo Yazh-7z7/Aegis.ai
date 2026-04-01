@@ -10,8 +10,7 @@
 
 **Real-time AI firewall that intercepts and classifies prompt injection attacks before they reach your LLM.**
 
-[Live Demo](https://aegis-ai-delta.vercel.app) · [API Docs](https://aegis-api.railway.app/docs) · [Report Bug](https://github.com/yourusername/aegis-ai/issues)
-
+[Live Demo](https://aegis-ai-delta.vercel.app) · 
 </div>
 
 ---
